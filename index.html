@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASL GLOSS STUDIO - Transform Text into ASL</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f0;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #1a7f8e 0%, #2a9d8f 100%);
+            color: white;
+            padding: 100px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '🌙';
+            position: absolute;
+            top: 30px;
+            right: 10%;
+            font-size: 4em;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 1.4em;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #d97706;
+            color: white;
+            padding: 20px 60px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 25px rgba(217, 119, 6, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button:hover {
+            background: #b45309;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(217, 119, 6, 0.6);
+        }
+
+
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .intro h2 {
+            color: #1a7f8e;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .intro p {
+            font-size: 1.2em;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .category-tags {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            font-size: 1.1em;
+            color: #666;
+        }
+
+        .category-tags span {
+            padding: 10px 20px;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .category-tags span:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+        }
+
+        .example-section {
+            text-align: center;
+            margin: 80px 0;
+        }
+
+        .example-section h3 {
+            color: #1a7f8e;
+            font-size: 1.9em;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .example-carousel {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            max-width: 650px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .example-content {
+            min-width: 100%;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .example-label {
+            font-weight: 600;
+            color: #1a7f8e;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .example-text {
+            color: #333;
+            font-size: 1.15em;
+            line-height: 1.8;
+            padding: 20px;
+            background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+            border-radius: 10px;
+            margin: 10px 0;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .dot:hover {
+            background: #aaa;
+        }
+
+        .dot.active {
+            background: #2a9d8f;
+            width: 30px;
+            border-radius: 5px;
+        }
+
+        .inspiration-section {
+            text-align: center;
+            margin: 80px 0 60px;
+        }
+
+        .inspiration-section h3 {
+            color: #1a7f8e;
+            font-size: 2.1em;
+            margin-bottom: 50px;
+            font-weight: 600;
+        }
+
+        .tab-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .tab-btn {
+            background: white;
+            color: #666;
+            border: 2px solid #e0e0e0;
+            padding: 15px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            border-color: #2a9d8f;
+            color: #2a9d8f;
+        }
+
+        .tab-btn.active {
+            background: #2a9d8f;
+            color: white;
+            border-color: #2a9d8f;
+            box-shadow: 0 4px 15px rgba(42, 157, 143, 0.3);
+        }
+
+        .activities-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .activity-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-left: 4px solid #d97706;
+            text-align: left;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .activity-card h5 {
+            color: #1a7f8e;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+
+        .activity-card p {
+            color: #666;
+            font-size: 1em;
+            line-height: 1.7;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .final-cta {
+            text-align: center;
+            background: white;
+            padding: 60px 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            margin: 80px 0;
+        }
+
+        .final-cta h3 {
+            color: #1a7f8e;
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #1a7f8e 0%, #2a9d8f 100%);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 0;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+            font-size: 1.05em;
+        }
+
+        .footer-links span {
+            opacity: 0.9;
+        }
+
+        footer a {
+            color: #fbbf24;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #fcd34d;
+            text-decoration: underline;
+        }
+
+        .qr-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            padding: 12px 24px;
+            border-radius: 25px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .qr-badge:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .hero p {
+                font-size: 1.1em;
+            }
+
+            .example-carousel {
+                padding: 30px 20px;
+            }
+
+            .cta-button {
+                padding: 16px 40px;
+                font-size: 1.1em;
+            }
+
+            .tab-btn {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>ASL GLOSS STUDIO</h1>
+        <p>Turn any text into ASL gloss. Learn, play, and perform in a way that's uniquely yours.</p>
+    </div>
+
+    <div class="container">
+        <div class="intro">
+            <h2>Enter the Studio.</h2>
+            <p><strong>Watch English transform into ASL grammar.</strong></p>
+            <p>ASL GLOSS STUDIO is a free tool that reshapes stories, poems, and everyday words into ASL structure. Use it to study, practice, or create your own signed performances and adventures.</p>
+            
+            <a href="https://chatgpt.com/g/g-68d426aa89108191aadd9470dfd2d1bc-asl-gloss-studio" class="cta-button">Launch ASL GLOSS STUDIO</a>
+            
+            <div class="category-tags">
+                <span>Poems</span>
+                <span>Songs</span>
+                <span>News</span>
+                <span>Stories</span>
+            </div>
+        </div>
+
+        <div class="example-section">
+            <h3>Ready to see how it works? Try an example below.</h3>
+            <div class="example-carousel">
+                <div class="carousel-track" id="carouselTrack">
+                    <div class="example-content">
+                        <div class="example-label">English 📝</div>
+                        <div class="example-text">"Hello, how are you?"</div>
+                        
+                        <div class="example-label" style="margin-top: 25px;">Gloss 🤟</div>
+                        <div class="example-text">HELLO, YOU FEEL HOW?</div>
+                    </div>
+                    <div class="example-content">
+                        <div class="example-label">English 📝</div>
+                        <div class="example-text">A journey of a thousand miles begins with a single step.</div>
+                        
+                        <div class="example-label" style="margin-top: 25px;">Gloss 🤟</div>
+                        <div class="example-text">JOURNEY LONG, START? ONE STEP FIRST</div>
+                    </div>
+                    <div class="example-content">
+                        <div class="example-label">English 📝</div>
+                        <div class="example-text">To be or not to be, that is the question.</div>
+                        
+                        <div class="example-label" style="margin-top: 25px;">Gloss 🤟</div>
+                        <div class="example-text">EXIST NOT-EXIST, WHICH? TRUE QUESTION</div>
+                    </div>
+                    <div class="example-content">
+                        <div class="example-label">English 📝</div>
+                        <div class="example-text">Dream big and let your hands paint the universe.</div>
+                        
+                        <div class="example-label" style="margin-top: 25px;">Gloss 🤟</div>
+                        <div class="example-text">DREAM BIG, YOUR HAND CAN CREATE WORLD</div>
+                    </div>
+                </div>
+                <div class="carousel-controls">
+                    <div class="carousel-dots" id="carouselDots"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="inspiration-section">
+            <h3>Looking for inspiration? Choose your adventure…</h3>
+            
+            <div class="tab-navigation">
+                <button class="tab-btn active" onclick="showTab('music')">Music & Media</button>
+                <button class="tab-btn" onclick="showTab('stories')">Stories & Poetry</button>
+                <button class="tab-btn" onclick="showTab('life')">Life & Reflection</button>
+                <button class="tab-btn" onclick="showTab('play')">Play & Learn</button>
+            </div>
+
+            <div id="music" class="tab-content active">
+                <div class="activities-container">
+                    <div class="activity-card">
+                        <h5>🎶 Gloss Your Favorite Song</h5>
+                        <p>Transform lyrics into beautiful ASL grammar and create your own music video.</p>
+                    </div>
+                    <div class="activity-card">
+                        <h5>🗞️ Decode Tweets & Memes</h5>
+                        <p>Turn social media posts into ASL grammar for a fun twist on trending topics.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="stories" class="tab-content">
+                <div class="activities-container">
+                    <div class="activity-card">
+                        <h5>📚 Retell Stories & Tales</h5>
+                        <p>Take a classic fairy tale or your own story and see how it flows in ASL.</p>
+                    </div>
+                    <div class="activity-card">
+                        <h5>✍️ Create ASL Poetry</h5>
+                        <p>Experiment with rhythm and facial expressions to craft poetic pieces in ASL.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="life" class="tab-content">
+                <div class="activities-container">
+                    <div class="activity-card">
+                        <h5>🙏 Sign Prayers & Poems</h5>
+                        <p>Write prayers or poems and let the studio show you their ASL form.</p>
+                    </div>
+                    <div class="activity-card">
+                        <h5>📝 Gloss Your Journal</h5>
+                        <p>Turn your daily journal entries into ASL grammar and practice expressive language.</p>
+                    </div>
+                    <div class="activity-card">
+                        <h5>🌍 Translate Idioms & Jokes</h5>
+                        <p>Turn idioms, puns, or jokes into ASL grammar and see how they change.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="play" class="tab-content">
+                <div class="activities-container">
+                    <div class="activity-card">
+                        <h5>🎬 Practice Dialogues</h5>
+                        <p>Take short movie scenes or dialogues and gloss them to understand ASL conversation flow.</p>
+                    </div>
+                    <div class="activity-card">
+                        <h5>🧪 Learn Science & History Terms</h5>
+                        <p>Gloss complex scientific or historical texts to build vocabulary and deepen understanding.</p>
+                    </div>
+                    <div class="activity-card">
+                        <h5>🤝 Share with Friends</h5>
+                        <p>Gloss messages to friends and challenge them to guess the original English sentences.</p>
+                    </div>
+                    <div class="activity-card">
+                        <h5>🎲 Play ASL Games</h5>
+                        <p>Try telephone: pass the gloss along and see how it transforms through multiple signers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="final-cta">
+            <h3>Which activity will you try first? Jump into the studio!</h3>
+            <a href="https://chatgpt.com/g/g-68d426aa89108191aadd9470dfd2d1bc-asl-gloss-studio" class="cta-button">Launch ASL GLOSS STUDIO</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p style="font-size: 1.2em; margin-bottom: 15px;"><strong>Part of SignStream</strong></p>
+            
+            <p style="margin-top: 15px; font-size: 1em;"><a href="https://youtube.com/@Jared.Finney" target="_blank">@Jared.Finney</a> – Sign of the Day</p>
+            
+            <p style="margin-top: 25px; font-size: 0.9em; opacity: 0.7;">© 2025 ASL GLOSS STUDIO. Free educational tool for the Deaf community.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentExample = 0;
+        const totalExamples = 4;
+        let autoScrollInterval;
+
+        function createDots() {
+            const dotsContainer = document.getElementById('carouselDots');
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < totalExamples; i++) {
+                const dot = document.createElement('div');
+                dot.className = `dot ${i === 0 ? 'active' : ''}`;
+                dot.onclick = () => goToExample(i);
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function updateDots() {
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentExample);
+            });
+        }
+
+        function updateCarousel() {
+            const track = document.getElementById('carouselTrack');
+            track.style.transform = `translateX(-${currentExample * 100}%)`;
+            updateDots();
+        }
+
+        function nextExample() {
+            currentExample = (currentExample + 1) % totalExamples;
+            updateCarousel();
+        }
+
+        function goToExample(index) {
+            currentExample = index;
+            updateCarousel();
+            resetAutoScroll();
+        }
+
+        function startAutoScroll() {
+            autoScrollInterval = setInterval(nextExample, 4000);
+        }
+
+        function resetAutoScroll() {
+            clearInterval(autoScrollInterval);
+            startAutoScroll();
+        }
+
+        const carousel = document.querySelector('.example-carousel');
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(autoScrollInterval);
+        });
+
+        carousel.addEventListener('mouseleave', () => {
+            startAutoScroll();
+        });
+
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-btn');
+            
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        createDots();
+        startAutoScroll();
+    </script>
+</body>
+</html>
