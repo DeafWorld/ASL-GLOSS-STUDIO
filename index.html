@@ -190,11 +190,12 @@
 
         .example-content {
             min-width: 100%;
-            min-height: 200px;
+            min-height: 280px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             flex-shrink: 0;
+            padding: 0 10px;
         }
 
         .example-label {
@@ -206,7 +207,7 @@
 
         .example-text {
             color: #333;
-            font-size: 1.15em;
+            font-size: 1.05em;
             line-height: 1.8;
             padding: 20px;
             background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
@@ -216,14 +217,36 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            text-align: center;
         }
 
         .carousel-controls {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px;
+            gap: 30px;
             margin-top: 30px;
+        }
+
+        .carousel-btn {
+            background: #2a9d8f;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .carousel-btn:hover {
+            background: #1a7f8e;
+            transform: scale(1.1);
         }
 
         .carousel-dots {
@@ -426,6 +449,22 @@
 
             .example-carousel {
                 padding: 30px 20px;
+                max-width: 100%;
+            }
+
+            .example-content {
+                min-height: 320px;
+                padding: 0 5px;
+            }
+
+            .example-text {
+                font-size: 0.95em;
+                padding: 15px;
+                line-height: 1.6;
+            }
+
+            .example-label {
+                font-size: 1.1em;
             }
 
             .cta-button {
@@ -436,6 +475,50 @@
             .tab-btn {
                 padding: 12px 20px;
                 font-size: 1em;
+            }
+
+            .carousel-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .hero p {
+                font-size: 1em;
+            }
+
+            .example-carousel {
+                padding: 25px 15px;
+            }
+
+            .example-content {
+                min-height: 340px;
+            }
+
+            .example-text {
+                font-size: 0.9em;
+                padding: 12px;
+            }
+
+            .example-label {
+                font-size: 1em;
+            }
+
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2em;
+            }
+
+            .category-tags span {
+                padding: 8px 15px;
+                font-size: 0.95em;
             }
         }
     </style>
@@ -467,36 +550,45 @@
             <div class="example-carousel">
                 <div class="carousel-track" id="carouselTrack">
                     <div class="example-content">
-                        <div class="example-label">English 📝</div>
-                        <div class="example-text">"Hello, how are you?"</div>
+                        <div class="example-label">English 🍕</div>
+                        <div class="example-text">"Where's the pizza?"</div>
                         
                         <div class="example-label" style="margin-top: 25px;">Gloss 🤟</div>
-                        <div class="example-text">HELLO, YOU FEEL HOW?</div>
+                        <div class="example-text">PIZZA WHERE (big eyes / searching face)</div>
                     </div>
                     <div class="example-content">
-                        <div class="example-label">English 📝</div>
-                        <div class="example-text">A journey of a thousand miles begins with a single step.</div>
+                        <div class="example-label">English 🐶</div>
+                        <div class="example-text">"My dog ate my homework."</div>
                         
                         <div class="example-label" style="margin-top: 25px;">Gloss 🤟</div>
-                        <div class="example-text">JOURNEY LONG, START? ONE STEP FIRST</div>
+                        <div class="example-text">HOMEWORK PAPER GONE WHY? (whq) DOG EAT (shift eyes, guilty)</div>
                     </div>
                     <div class="example-content">
-                        <div class="example-label">English 📝</div>
-                        <div class="example-text">To be or not to be, that is the question.</div>
+                        <div class="example-label">English 🌌</div>
+                        <div class="example-text">"Dream big, let your hands paint the universe."</div>
                         
                         <div class="example-label" style="margin-top: 25px;">Gloss 🤟</div>
-                        <div class="example-text">EXIST NOT-EXIST, WHICH? TRUE QUESTION</div>
+                        <div class="example-text">DREAM BIG+++ HANDS PAINT ACROSS-UNIVERSE (sweeping, expansive motion)</div>
                     </div>
                     <div class="example-content">
-                        <div class="example-label">English 📝</div>
-                        <div class="example-text">Dream big and let your hands paint the universe.</div>
+                        <div class="example-label">English 🎭</div>
+                        <div class="example-text">"To be or not to be, that is the question."</div>
                         
                         <div class="example-label" style="margin-top: 25px;">Gloss 🤟</div>
-                        <div class="example-text">DREAM BIG, YOUR HAND CAN CREATE WORLD</div>
+                        <div class="example-text">EXIST / NOT-EXIST, QUESTION DEEP (serious, thoughtful face)</div>
+                    </div>
+                    <div class="example-content">
+                        <div class="example-label">English ✨</div>
+                        <div class="example-text">"Be kind, the world is watching."</div>
+                        
+                        <div class="example-label" style="margin-top: 25px;">Gloss 🤟</div>
+                        <div class="example-text">BE KIND, WORLD EYES-ON-YOU (point outward, circling gaze)</div>
                     </div>
                 </div>
                 <div class="carousel-controls">
+                    <button class="carousel-btn" onclick="prevExample()">←</button>
                     <div class="carousel-dots" id="carouselDots"></div>
+                    <button class="carousel-btn" onclick="nextExample()">→</button>
                 </div>
             </div>
         </div>
@@ -594,8 +686,7 @@
 
     <script>
         let currentExample = 0;
-        const totalExamples = 4;
-        let autoScrollInterval;
+        const totalExamples = 5;
 
         function createDots() {
             const dotsContainer = document.getElementById('carouselDots');
@@ -626,29 +717,15 @@
             updateCarousel();
         }
 
+        function prevExample() {
+            currentExample = (currentExample - 1 + totalExamples) % totalExamples;
+            updateCarousel();
+        }
+
         function goToExample(index) {
             currentExample = index;
             updateCarousel();
-            resetAutoScroll();
         }
-
-        function startAutoScroll() {
-            autoScrollInterval = setInterval(nextExample, 4000);
-        }
-
-        function resetAutoScroll() {
-            clearInterval(autoScrollInterval);
-            startAutoScroll();
-        }
-
-        const carousel = document.querySelector('.example-carousel');
-        carousel.addEventListener('mouseenter', () => {
-            clearInterval(autoScrollInterval);
-        });
-
-        carousel.addEventListener('mouseleave', () => {
-            startAutoScroll();
-        });
 
         function showTab(tabName) {
             const tabs = document.querySelectorAll('.tab-content');
@@ -667,7 +744,6 @@
         }
 
         createDots();
-        startAutoScroll();
     </script>
 </body>
 </html>
