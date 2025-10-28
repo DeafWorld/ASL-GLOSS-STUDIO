@@ -13,6 +13,16 @@
         }
 
 ```
+    /* Force dark mode everywhere */
+    *, *::before, *::after {
+        color-scheme: dark;
+    }
+
+    html, body {
+        background-color: #0f172a !important;
+        color: #f8fafc;
+    }
+
     :root {
         --primary: #2dd4bf;
         --accent: #fbbf24;
@@ -24,10 +34,11 @@
 
     body {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        background: var(--light);
+        background: #0f172a !important;
         color: var(--dark);
         transition: all 0.3s ease;
         overflow-x: hidden;
+        min-height: 100vh;
     }
 
     /* Animated gradient background */
@@ -359,17 +370,27 @@
         font-size: 1.05em;
     }
 
-    /* Main Content */
+    /* Main Content - FORCED DARK MODE */
     .main-content {
-        background: var(--light);
+        background: #0f172a !important;
         position: relative;
         z-index: 1;
+    }
+
+    /* Force dark mode for html and body */
+    html {
+        background: #0f172a !important;
+    }
+
+    body {
+        background: #0f172a !important;
     }
 
     .section {
         max-width: 1400px;
         margin: 0 auto;
         padding: 100px 40px;
+        background: transparent !important;
     }
 
     .section-title {
@@ -869,7 +890,7 @@
     </section>
 
     <!-- YouTube CTA -->
-    <section class="section" style="background: linear-gradient(135deg, var(--primary) 0%, #2a9d8f 100%); border-radius: 32px; color: #0f172a; text-align: center; padding: 120px 60px;">
+    <section class="section" style="background: linear-gradient(135deg, #2dd4bf 0%, #2a9d8f 100%) !important; border-radius: 32px; color: #0f172a; text-align: center; padding: 120px 60px; margin: 60px 40px;">
         <h2 style="color: #0f172a; margin-bottom: 30px;">Learn with Sign of the Day</h2>
         <p style="color: rgba(15,23,42,0.8); font-size: 1.4em; margin: 30px auto; font-weight: 600; max-width: 700px; line-height: 1.6;">Watch daily gloss demonstrations and ASL tutorials on YouTube</p>
         <a href="https://youtube.com/@Jared.Finney" class="cta-btn-large" target="_blank" style="background: #0f172a; color: var(--primary); margin-top: 20px;">Subscribe to @Jared.Finney</a>
