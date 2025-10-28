@@ -211,7 +211,7 @@
         border-color: rgba(255,255,255,0.4);
     }
 
-    /* Gloss of the Day Widget */
+    /* Gloss of the Day Widget - FIXED */
     .gloss-widget {
         background: var(--card-bg);
         border-radius: 24px;
@@ -262,16 +262,18 @@
         line-height: 1.6;
     }
 
+    /* FIXED: Better contrast for gloss display */
     .widget-gloss {
         font-size: 1.6em;
         font-weight: 700;
-        color: var(--dark);
+        color: #ffffff;
         padding: 25px;
-        background: #0f172a;
+        background: rgba(15, 23, 42, 0.8);
         border-radius: 12px;
         font-family: 'Courier New', monospace;
         line-height: 1.7;
         margin-bottom: 25px;
+        border: 1px solid rgba(45, 212, 191, 0.3);
     }
 
     .widget-actions {
@@ -421,7 +423,7 @@
         font-size: 1.05em;
     }
 
-    /* Gloss Examples - Card Stack */
+    /* Gloss Examples - Card Stack - FIXED */
     .gloss-showcase {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -470,15 +472,17 @@
         font-style: italic;
     }
 
+    /* FIXED: Better visibility for ASL gloss text */
     .gloss-asl {
         font-size: 1.4em;
         font-weight: 700;
-        color: var(--dark);
+        color: #ffffff;
         padding: 20px;
-        background: #0f172a;
+        background: rgba(15, 23, 42, 0.8);
         border-radius: 12px;
         font-family: 'Courier New', monospace;
         line-height: 1.6;
+        border: 1px solid rgba(45, 212, 191, 0.3);
     }
 
     /* Category Pills */
@@ -552,7 +556,7 @@
         color: rgba(255,255,255,0.5);
     }
 
-    /* Modal */
+    /* Modal - FIXED */
     .modal {
         display: none;
         position: fixed;
@@ -622,8 +626,9 @@
         margin-bottom: 40px;
     }
 
+    /* FIXED: Example items in modal */
     .example-item {
-        background: #0f172a;
+        background: rgba(15, 23, 42, 0.6);
         border-radius: 16px;
         padding: 30px;
         margin: 20px 0;
@@ -641,11 +646,16 @@
         margin: 10px 0;
         font-size: 1.05em;
         line-height: 1.7;
+        color: #ffffff;
+    }
+
+    .example-text strong {
+        color: var(--primary);
     }
 
     .copy-button {
         background: var(--primary);
-        color: white;
+        color: #0f172a;
         border: none;
         padding: 10px 25px;
         border-radius: 25px;
@@ -1099,13 +1109,15 @@
         
         let html = '';
         glossExamples[category].forEach((ex, i) => {
+            const escapedEnglish = ex.english.replace(/'/g, "\\'");
+            const escapedGloss = ex.gloss.replace(/'/g, "\\'");
             html += `
                 <div class="example-item">
                     <div class="example-title">Example ${i + 1}</div>
                     <div class="example-text"><strong>English:</strong> "${ex.english}"</div>
                     <div class="example-text"><strong>Gloss:</strong> ${ex.gloss}</div>
-                    <button class="copy-button" onclick="copyText('${ex.english}', this)">📋 Copy English</button>
-                    <button class="copy-button" onclick="copyText('${ex.gloss}', this)">📋 Copy Gloss</button>
+                    <button class="copy-button" onclick="copyText('${escapedEnglish}', this)">📋 Copy English</button>
+                    <button class="copy-button" onclick="copyText('${escapedGloss}', this)">📋 Copy Gloss</button>
                 </div>
             `;
         });
